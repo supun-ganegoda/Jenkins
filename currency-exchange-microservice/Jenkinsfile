@@ -13,30 +13,19 @@ node {
 // Declarative syntax
 pipeline {
 	agent any
-	environment {
-		dockerHome = tool 'Docker-engine'
-		mavenHome = tool 'Maven-binaries'
-		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
-	}
-	stages {
-			stage('Build') {
-			steps {
-				echo "Tool versions"
-				sh "mvn --version"
-				sh "docker version"
-			}
-		}
-
-		stage('Test') {
-			steps {
-				echo "Test"
-			}
-		}	
-
-		stage('Integration Test') {
-			steps {
-				echo "Integration Test"
-			}
-		}	
-	}
+	 environment {
+        dockerHome = tool 'Docker-engine'
+        PATH = "${dockerHome}/bin:${PATH}"
+    }
+    stages {
+        stage('Debug') {
+            steps {
+                sh '''
+                    echo "DOCKER_HOST: $DOCKER_HOST"
+                    echo "PATH: $PATH"
+                    docker version || echo "Failed to connect to Docker"
+                '''
+            }
+        }
+    }
 } 
