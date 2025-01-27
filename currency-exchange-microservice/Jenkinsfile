@@ -16,6 +16,7 @@ pipeline {
 	 environment {
         dockerHome = tool 'Docker-engine'
         PATH = "${dockerHome}/bin:${PATH}"
+		DOCKER_HOST = ""
     }
     stages {
         stage('Debug') {
