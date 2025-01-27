@@ -16,7 +16,7 @@ pipeline {
 	 environment {
         dockerHome = tool 'Docker-engine'
         PATH = "${dockerHome}/bin:${PATH}"
-		DOCKER_HOST = ""
+		DOCKER_HOST = "unix:///var/run/docker.sock"
     }
     stages {
         stage('Debug') {
