@@ -13,10 +13,17 @@ node {
 // Declarative syntax
 pipeline {
 	agent any
+	environment{
+		dockerHome = tool 'Docker-engine'
+		mavenHome = tool 'Maven-binaries'
+		PATH = '$dockerHome/bin:$mavenHome/bin:$PATH'
+	}
 	stages {
 			stage('Build') {
 			steps {
-				echo "Build"
+				echo "Tool versions"
+				sh "mvn --version"
+				sh "docker version"
 			}
 		}
 
