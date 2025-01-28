@@ -28,18 +28,15 @@ pipeline {
         }
         stage('Unit Test'){
             steps{
-                sh "mvn test"
+                  dir('currency-exchange-microservice') {
+                    sh "mvn test"
+                }
             }
         }
         stage("Integration Test"){
             steps{
-                sh "mvn failsafe:integration-test failsafe:verify"
-            }
-        }
-        stage("Docker build"){
-            steps{
-                script {
-                    dockerImage = docker.build("supunganegoda/exchange-microservice:${env.BUILD_TAG}")
+                  dir('currency-exchange-microservice') {
+                    sh "mvn failsafe:integration-test failsafe:verify"
                 }
             }
         }
