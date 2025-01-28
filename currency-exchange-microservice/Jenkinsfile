@@ -35,8 +35,10 @@ pipeline {
             }
         }
         stage("Docker build"){
-            script {
-                dockerImage = docker.build("supunganegoda/exchange-microservice:${env.BUILD_TAG}")
+            steps{
+                script {
+                    dockerImage = docker.build("supunganegoda/exchange-microservice:${env.BUILD_TAG}")
+                }
             }
         }
     }
